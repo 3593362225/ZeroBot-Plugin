@@ -178,88 +178,88 @@ import (
 
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/ai_reply" // 人工智能回复
 
-	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/thesaurus" // 词典匹配回复
+	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/thesaurus"  // 搜索匹配回复
 
-	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/breakrepeat" // 打断复读
+	_ "github.com/FloatTech/ZeroBot-Plugin/plugin/breakrepeat"  // 打断复读
 
-	//                               ^^^^                               //
-	//                          ^^^^^^^^^^^^^^                          //
-	//                      ^^^^^^^低优先级区^^^^^^^                      //
-	//               ^^^^^^^^^^^^^^低优先级区^^^^^^^^^^^^^^               //
-	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^低优先级区^^^^^^^^^^^^^^^^^^^^^^^^^^^^ //
-	// ----------------------------低优先级区---------------------------- //
-	//                                                                  //
-	//                                                                  //
-	//                                                                  //
-	//                                                                  //
-	//                                                                  //
-	// -----------------------以下为内置依赖，勿动------------------------ //
-	"github.com/FloatTech/floatbox/process"
-	"github.com/sirupsen/logrus"
-	zero "github.com/wdvxdr1123/ZeroBot"
-	"github.com/wdvxdr1123/ZeroBot/driver"
-	"github.com/wdvxdr1123/ZeroBot/message"
+	// ^^^^ ////                               ^^^^                               //
+	// ^^^^^^^^^^^^^^^ ////                          ^^^^^^^^^^^^^^                          //
+	// ^^^^^^^低优先级区^^^^^^^ ////                      ^^^^^^^低优先级区^^^^^^^                      //
+	// ^^^^^^^^^^^^^^^低优先级区^^^^^^^^^^^^^^^ ////               ^^^^^^^^^^^^^^低优先级区^^^^^^^^^^^^^^               //
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^低优先级区^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^ //// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^低优先级区^^^^^^^^^^^^^^^^^^^^^^^^^^^^ //
+	// ---------------------------------------- 低优先级区---------------- ------------ //// ----------------------------低优先级区---------------------------- //
+	// ////                                                                  //
+	// ////                                                                  //
+	// ////                                                                  //
+	// ////                                                                  //
+	// ////                                                                  //
+	// -----------------------以下为内置依赖，请勿动------------------ ------ //// -----------------------以下为内置依赖，勿动------------------------ //
+	“github.com/FloatTech/floatbox/process”"github.com/FloatTech/floatbox/process"
+	“github.com/sirupsen/logrus”"github.com/sirupsen/logrus"
+	零“github.com/wdvxdr1123/ZeroBot”"github.com/wdvxdr1123/ZeroBot"
+	“github.com/wdvxdr1123/ZeroBot/driver”“github.com/wdvxdr1123/ZeroBot/driver”
+	“github.com/wdvxdr1123/ZeroBot/message”"github.com/wdvxdr1123/ZeroBot/message"
 
-	// webctrl "github.com/FloatTech/zbputils/control/web"
+	// webctrl“github.com/FloatTech/zbputils/control/web”// webctrl "github.com/FloatTech/zbputils/control/web"
 
-	"github.com/FloatTech/ZeroBot-Plugin/kanban/banner"
-	// -----------------------以上为内置依赖，勿动------------------------ //
-)
+	“github.com/FloatTech/ZeroBot-Plugin/kanban/banner”"github.com/FloatTech/ZeroBot-Plugin/kanban/banner"
+	// -----------------------以上为内置依赖，请勿动------------------ ------ //// -----------------------以上为内置依赖，勿动------------------------ //
+）
 
-type zbpcfg struct {
-	Z zero.Config        `json:"zero"`
-	W []*driver.WSClient `json:"ws"`
-	S []*driver.WSServer `json:"wss"`
+type类型 zbpcfg 结构体 {struct {
+	Z 零。配置 `json:"zero"`.Config        `json:"zero"`
+	W []*driver.WSClient `json:"ws"`.WSClient `json:"ws"`
+	S []*driver.WSServer `json:"wss"`.WSServer `json:"wss"`
 }
 
-var config zbpcfg
+varvar 配置 zbpcfg
 
-func init() {
-	sus := make([]int64, 0, 16)
-	// 解析命令行参数
-	d := flag.Bool("d", false, "Enable debug level log and higher.")
-	w := flag.Bool("w", false, "Enable warning level log and higher.")
-	h := flag.Bool("h", false, "Display this help.")
-	// g := flag.String("g", "127.0.0.1:3000", "Set webui url.")
-	// 直接写死 AccessToken 时，请更改下面第二个参数
-	token := flag.String("t", "", "Set AccessToken of WSClient.")
-	// 直接写死 URL 时，请更改下面第二个参数
-	url := flag.String("u", "ws://127.0.0.1:6700", "Set Url of WSClient.")
-	// 默认昵称
-	adana := flag.String("n", "椛椛", "Set default nickname.")
-	prefix := flag.String("p", "/", "Set command prefix.")
-	runcfg := flag.String("c", "", "Run from config file.")
-	save := flag.String("s", "", "Save default config to file and exit.")
-	late := flag.Uint("l", 233, "Response latency (ms).")
-	rsz := flag.Uint("r", 4096, "Receiving buffer ring size.")
-	maxpt := flag.Uint("x", 4, "Max process time (min).")
-	markmsg := flag.Bool("m", false, "Don't mark message as read automatically")
+func函数初始化（）{
+	su := make([]int64, 0, 16)make([]int64, 0, 16)
+	// 解析命令行参数// 解析命令行参数
+	d := flag.Bool("d", false, "启用调试级别日志及更高级别。").Bool("d", false, "Enable debug level log and higher.")
+	w := flag.Bool("w", false, "启用警告级别日志及更高级别。").Bool("w", false, "Enable warning level log and higher.")
+	h := flag.Bool("h", false, "显示此帮助。").Bool("h", false, "Display this help.")
+	// g := flag.String("g", "127.0.0.1:3000", "设置 webui url。")// g := flag.String("g", "127.0.0.1:3000", "Set webui url.")
+	// 直接写死AccessToken时，请更改下面第二个参数// 直接写死 AccessToken 时，请更改下面第二个参数
+	token := flag.String("t", "", "设置 WSClient 的 AccessToken。").String("t", "", "Set AccessToken of WSClient.")
+	// 直接写死URL时，请更改下面第二个参数// 直接写死 URL 时，请更改下面第二个参数
+	url := flag.String("u", "ws://127.0.0.1:6700", "设置 WSClient 的 URL。").String("u", "ws://127.0.0.1:6700", "Set Url of WSClient.")
+	// 基准指标
+	adana := flag。String( "n" , "椛椛" , "设置默认昵称。" ).String("n", "椛椛", "Set default nickname.")
+	prefix := flag.String("p", "/", "设置命令前缀。").String("p", "/", "Set command prefix.")
+	runcfg := flag.String("c", "", "从配置文件运行。").String("c", "", "Run from config file.")
+	save := flag.String("s", "", "将默认配置保存到文件并退出。").String("s", "", "Save default config to file and exit.")
+	Late := flag.Uint("l", 233, "响应延迟（毫秒）。").Uint("l", 233, "Response latency (ms).")
+	rsz := flag.Uint("r", 4096, "接收缓冲区环大小。")。Uint( "r" , 4096 , "接收缓冲区环大小。" )
+	maxpt := flag。Uint( "x" , 4 , "最大处理时间（分钟）。" ).Uint("x", 4, "Max process time (min).")
+	markmsg := flag.Bool("m", false, "不要将消息标记为自动已读").Bool("m", false, "Don't mark message as read automatically")
 
-	flag.Parse()
+	标志.Parse().Parse()
 
-	if *h {
-		fmt.Println("Usage:")
-		flag.PrintDefaults()
-		os.Exit(0)
+	如果*h{if *h {
+		fmt.Println("用法：").Println("Usage:")
+		标志.PrintDefaults().PrintDefaults()
+		os.退出(0).Exit(0)
 	}
-	if *d && !*w {
-		logrus.SetLevel(logrus.DebugLevel)
+	如果 *d && !*w {if *d && !*w {
+		logrus.SetLevel(logrus.DebugLevel).SetLevel(logrus.DebugLevel)
 	}
-	if *w {
-		logrus.SetLevel(logrus.WarnLevel)
+	如果*w{if *w {
+		logrus.SetLevel(logrus.WarnLevel).SetLevel(logrus.WarnLevel)
 	}
 
-	for _, s := range flag.Args() {
-		i, err := strconv.ParseInt(s, 10, 64)
-		if err != nil {
-			continue
+	for _, s := 范围 flag.Args() {for _, s := range flag.Args() {
+		我，错误 := strconv.ParseInt(s, 10, 64)10 , 64 )
+		如果错误！= nil {
+			继续
 		}
-		sus = append(sus, i)
+		sus = 附加（sus，i）
 	}
 
 	// 通过代码写死的方式添加主人账号
 	// sus = append(sus, 3593362225)
-	// sus = append(sus, 87654321)
+	// sus = append(sus, 3446243582)
 
 	// 启用 webui
 	// go webctrl.RunGui(*g)
